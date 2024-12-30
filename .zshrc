@@ -65,16 +65,16 @@ SAVEHIST=10000
 setopt appendhistory
 
 # Configure Powerlevel10k
-source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
+source "$(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # ZSH Auto Suggestions
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
 # Must be last
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 # fnm
 FNM_PATH="/Users/maxquinn/Library/Application Support/fnm"
