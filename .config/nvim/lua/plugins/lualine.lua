@@ -1,107 +1,85 @@
+local colors = {
+  darkgray = "#2f4d69",
+  text = "#dcd7ba",
+  innerbg = nil,
+  outerbg = "#2f4d69",
+  normal = "#e79580",
+  insert = "#98bb6c",
+  visual = "#ffa066",
+  replace = "#7e9cd8",
+  command = "#e6c384",
+}
+
+local theme = {
+  inactive = {
+    a = { fg = colors.text, bg = colors.outerbg, gui = "bold" },
+    b = { fg = colors.text, bg = colors.outerbg },
+    c = { fg = colors.text, bg = colors.innerbg },
+  },
+  visual = {
+    a = { fg = colors.darkgray, bg = colors.visual, gui = "bold" },
+    b = { fg = colors.text, bg = colors.outerbg },
+    c = { fg = colors.text, bg = colors.innerbg },
+  },
+  replace = {
+    a = { fg = colors.darkgray, bg = colors.replace, gui = "bold" },
+    b = { fg = colors.text, bg = colors.outerbg },
+    c = { fg = colors.text, bg = colors.innerbg },
+  },
+  normal = {
+    a = { fg = colors.darkgray, bg = colors.normal, gui = "bold" },
+    b = { fg = colors.text, bg = colors.darkgray },
+    c = { fg = colors.text, bg = colors.innerbg },
+  },
+  insert = {
+    a = { fg = colors.darkgray, bg = colors.insert, gui = "bold" },
+    b = { fg = colors.text, bg = colors.outerbg },
+    c = { fg = colors.text, bg = colors.innerbg },
+  },
+  command = {
+    a = { fg = colors.darkgray, bg = colors.command, gui = "bold" },
+    b = { fg = colors.text, bg = colors.outerbg },
+    c = { fg = colors.text, bg = colors.innerbg },
+  },
+}
+
 return {
   {
     "nvim-lualine/lualine.nvim",
-    event = "VeryLazy",
-    init = function()
-      vim.g.lualine_laststatus = vim.o.laststatus
-      if vim.fn.argc(-1) > 0 then
-        -- set an empty statusline till lualine loads
-        vim.o.statusline = " "
-      else
-        -- hide the statusline on the starter page
-        vim.o.laststatus = 0
-      end
-    end,
-    opts = function()
-      -- PERF: we don't need this lualine require madness 🤷
-      local lualine_require = require("lualine_require")
-      lualine_require.require = require
-
-      local icons = LazyVim.config.icons
-
-      vim.o.laststatus = vim.g.lualine_laststatus
-
-      local opts = {
+    config = function()
+      require("lualine").setup({
         options = {
-          theme = "auto",
-          globalstatus = vim.o.laststatus == 3,
-          disabled_filetypes = { statusline = { "dashboard", "alpha", "ministarter" } },
-        },
-        sections = {
-          lualine_a = { "mode" },
-          lualine_b = { "branch" },
-
-          lualine_c = {
-            LazyVim.lualine.root_dir(),
-            {
-              "diagnostics",
-              symbols = {
-                error = icons.diagnostics.Error,
-                warn = icons.diagnostics.Warn,
-                info = icons.diagnostics.Info,
-                hint = icons.diagnostics.Hint,
-              },
+          theme = theme,
+          component_separators = "",
+          section_separators = { left = "", right = "" },
+          sections = {
+            lualine_a = { { "mode", separator = { left = "" }, right_padding = 2 } },
+            lualine_b = { "filename", "branch" },
+            lualine_c = {
+              "%=", --[[ add your center compoentnts here in place of this comment ]]
             },
-            { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-            { LazyVim.lualine.pretty_path() },
-          },
-          lualine_x = {
-          -- stylua: ignore
-          {
-            function() return require("noice").api.status.command.get() end,
-            cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
-            color = function() return LazyVim.ui.fg("Statement") end,
-          },
-          -- stylua: ignore
-          {
-            function() return require("noice").api.status.mode.get() end,
-            cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
-            color = function() return LazyVim.ui.fg("Constant") end,
-          },
-          -- stylua: ignore
-          {
-            function() return "  " .. require("dap").status() end,
-            cond = function() return package.loaded["dap"] and require("dap").status() ~= "" end,
-            color = function() return LazyVim.ui.fg("Debug") end,
-          },
-          -- stylua: ignore
-          {
-            require("lazy.status").updates,
-            cond = require("lazy.status").has_updates,
-            color = function() return LazyVim.ui.fg("Special") end,
-          },
-            {
-              "diff",
-              symbols = {
-                added = icons.git.added,
-                modified = icons.git.modified,
-                removed = icons.git.removed,
-              },
-              source = function()
-                local gitsigns = vim.b.gitsigns_status_dict
-                if gitsigns then
-                  return {
-                    added = gitsigns.added,
-                    modified = gitsigns.changed,
-                    removed = gitsigns.removed,
-                  }
-                end
-              end,
+            lualine_x = {},
+            lualine_y = { "filetype", "progress" },
+            lualine_z = {
+              { "location", separator = { right = "" }, left_padding = 2 },
             },
           },
-          lualine_y = {
-            { "progress", separator = " ", padding = { left = 1, right = 0 } },
-            { "location", padding = { left = 0, right = 1 } },
+          inactive_sections = {
+            lualine_a = { "filename" },
+            lualine_b = {},
+            lualine_c = {},
+            lualine_x = {},
+            lualine_y = {},
+            lualine_z = { "location" },
           },
-          lualine_z = {
-            function()
-              return " " .. os.date("%R")
-            end,
+          tabline = {},
+          extensions = {},
+          disabled_filetypes = {
+            "neo-tree",
+            "fzf",
           },
         },
-        extensions = { "neo-tree", "lazy" },
-      }
-      return opts
+      })
     end,
   },
 }

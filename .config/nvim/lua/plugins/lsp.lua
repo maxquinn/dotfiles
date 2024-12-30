@@ -7,8 +7,6 @@ return {
           settings = {
             typescript = {
               preferences = {
-                includeCompletionsForModuleExports = true,
-                includeCompletionsForImportStatements = true,
                 importModuleSpecifier = "non-relative",
               },
             },

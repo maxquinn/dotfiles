@@ -1,0 +1,58 @@
+# Themes:
+# ghostty +list-themes
+theme = Kanagawa Wave
+
+# Docs:
+# ghostty +show-config --default --docs | nvim
+background-opacity = 0.9
+background-blur-radius = 20
+mouse-hide-while-typing = true
+macos-titlebar-style = tabs
+macos-titlebar-proxy-icon = hidden
+window-save-state = always
+
+# Custom Icon
+macos-icon = custom-style
+macos-icon-frame = plastic
+macos-icon-ghost-color = #dcd7ba
+macos-icon-screen-color = #1f1f28,#7e9cd8,#ff9e3b
+
+# Fonts
+# ghostty +list-fonts
+font-size = 14
+adjust-cell-height = 10%
+# Standard
+font-family = Monaspace Neon Var
+font-style = Medium
+# Bold
+font-family-bold = Monaspace Argon Var
+font-style-bold = Regular Bold
+# Italic
+font-family-italic = Monaspace Radon Var
+font-style-italic = Italic
+# Bold Italic
+font-family-bold-italic = Monaspace Neon Var
+font-style-bold-italic = Regular Bold Italic
+# Features
+font-feature = calt
+font-feature = ss01
+font-feature = ss02
+font-feature = ss03
+font-feature = ss04
+font-feature = ss05
+font-feature = ss06
+font-feature = ss07
+font-feature = ss08
+font-feature = liga
+
+
+# keymaps
+keybind = global:cmd+`=toggle_quick_terminal
+keybind = ctrl+super+h=goto_split:left
+keybind = ctrl+super+j=goto_split:bottom
+keybind = ctrl+super+k=goto_split:top
+keybind = ctrl+super+l=goto_split:right
+keybind = super+shift+h=new_split:left
+keybind = super+shift+j=new_split:down
+keybind = super+shift+k=new_split:up
+keybind = super+shift+l=new_split:right

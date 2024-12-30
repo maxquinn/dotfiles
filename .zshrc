@@ -49,10 +49,8 @@ compinit
 zstyle ':completion:*:*:*:*:*' menu select
 bindkey '^[[Z' reverse-menu-complete  # shift+tab
 
-# Setup NVM
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# fnm
+eval "$(fnm env --use-on-cd --version-file-strategy=recursive --shell zsh)"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/maxquinn/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/maxquinn/google-cloud-sdk/path.zsh.inc'; fi
@@ -78,3 +76,10 @@ source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Must be last
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# fnm
+FNM_PATH="/Users/maxquinn/Library/Application Support/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="/Users/maxquinn/Library/Application Support/fnm:$PATH"
+  eval "`fnm env`"
+fi

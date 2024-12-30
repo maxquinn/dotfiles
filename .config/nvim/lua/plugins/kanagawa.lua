@@ -4,7 +4,7 @@ return {
     name = "kanagawa",
     lazy = false,
     priority = 1000,
-    config = function()
+    opts = function()
       require("kanagawa").setup({
         compile = false, -- enable compiling the colorscheme
         undercurl = true, -- enable undercurls
@@ -13,6 +13,8 @@ return {
         keywordStyle = { italic = true },
         statementStyle = { bold = true },
         typeStyle = {},
+        dimInactive = false,
+        terminalColors = true,
         colors = {
           theme = {
             all = {
@@ -40,6 +42,8 @@ return {
             PmenuThumb = { bg = theme.ui.bg_p2 },
             TelescopeTitle = { bg = "none" },
             TelescopeBorder = { bg = "none" },
+            StatusLine = { bg = "none" },
+            SnacksDashboardHeader = { fg = "#c34043", bg = "none" },
           }
         end,
         theme = "wave", -- Load "wave" theme when 'background' option is not set
