@@ -6,6 +6,7 @@ theme = Kanagawa Wave
 # ghostty +show-config --default --docs | nvim
 background-opacity = 0.9
 background-blur-radius = 20
+adjust-cursor-thickness = 1
 mouse-hide-while-typing = true
 macos-titlebar-style = tabs
 macos-titlebar-proxy-icon = hidden
@@ -23,7 +24,7 @@ font-size = 14
 adjust-cell-height = 10%
 # Standard
 font-family = Monaspace Neon Var
-font-style = Medium
+font-style = Regular Medium
 # Bold
 font-family-bold = Monaspace Argon Var
 font-style-bold = Regular Bold
