@@ -11,6 +11,7 @@ mouse-hide-while-typing = true
 macos-titlebar-style = tabs
 macos-titlebar-proxy-icon = hidden
 window-save-state = always
+macos-option-as-alt = true
 
 # Custom Icon
 macos-icon = custom-style
