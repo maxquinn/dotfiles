@@ -4,7 +4,10 @@ return {
     opts = {
       completion = {
         list = {
-          selection = "manual",
+          selection = {
+            preselect = false,
+            auto_insert = false,
+          },
         },
         ghost_text = {
           enabled = false,
