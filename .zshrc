@@ -77,8 +77,15 @@ source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 # fnm
-FNM_PATH="/Users/maxquinn/Library/Application Support/fnm"
+FNM_PATH="/Users/$USER/Library/Application Support/fnm"
 if [ -d "$FNM_PATH" ]; then
-  export PATH="/Users/maxquinn/Library/Application Support/fnm:$PATH"
+  export PATH="/Users/$USER/Library/Application Support/fnm:$PATH"
   eval "`fnm env`"
 fi
+
+# bun completions
+[ -s "/Users/max.quinn/.bun/_bun" ] && source "/Users/max.quinn/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

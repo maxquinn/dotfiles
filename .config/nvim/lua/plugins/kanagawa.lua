@@ -37,13 +37,18 @@ return {
             NormalDark = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
             MasonNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
             Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg_p1, blend = vim.o.pumblend }, -- add `blend = vim.o.pumblend` to enable transparency
-            PmenuSel = { fg = "NONE", bg = theme.ui.bg_p2 },
+            PmenuSel = { fg = "none", bg = theme.ui.bg_p2 },
             PmenuSbar = { bg = theme.ui.bg_m1 },
             PmenuThumb = { bg = theme.ui.bg_p2 },
             TelescopeTitle = { bg = "none" },
             TelescopeBorder = { bg = "none" },
             StatusLine = { bg = "none" },
             SnacksDashboardHeader = { fg = "#c34043", bg = "none" },
+            BlinkCmpMenu = { bg = "none", fg = theme.ui.fg },
+            BlinkCmpMenuBorder = { bg = "none", fg = theme.ui.float.fg_border },
+            BlinkCmpDocBorder = { bg = "none", fg = theme.ui.float.fg_border },
+            BlinkCmpDocSeparator = { bg = "none", fg = theme.ui.float.fg_border },
+            BlinkCmpScrollBarThumb = { bg = theme.ui.float.fg },
           }
         end,
         theme = "wave", -- Load "wave" theme when 'background' option is not set

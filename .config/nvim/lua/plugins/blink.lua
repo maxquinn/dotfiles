@@ -3,6 +3,10 @@ return {
     "saghen/blink.cmp",
     opts = {
       completion = {
+        menu = { auto_show = true, border = "rounded" },
+        documentation = {
+          window = { border = "rounded" },
+        },
         list = {
           selection = {
             preselect = false,

@@ -49,7 +49,7 @@ font-feature = liga
 
 
 # keymaps
-keybind = global:cmd+`=toggle_quick_terminal
+keybind = global:cmd+shift+`=toggle_quick_terminal
 keybind = ctrl+super+h=goto_split:left
 keybind = ctrl+super+j=goto_split:bottom
 keybind = ctrl+super+k=goto_split:top

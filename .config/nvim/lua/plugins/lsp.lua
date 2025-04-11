@@ -8,11 +8,43 @@ return {
             workingDirectories = { mode = "auto" },
           },
         },
-        vtsls = {
+        -- vtsls = {
+        --   settings = {
+        --     typescript = {
+        --       preferences = {
+        --         importModuleSpecifier = "non-relative",
+        --       },
+        --     },
+        --   },
+        -- },
+        ts_ls = {
+          init_options = {
+            preferences = {
+              importModuleSpecifierPreference = "non-relative",
+              importModuleSpecifierEnding = "minimal",
+            },
+          },
           settings = {
             typescript = {
-              preferences = {
-                importModuleSpecifier = "non-relative",
+              inlayHints = {
+                includeInlayParameterNameHints = "all",
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHints = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+              },
+            },
+            javascript = {
+              inlayHints = {
+                includeInlayParameterNameHints = "all",
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHints = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
               },
             },
           },
@@ -20,17 +52,19 @@ return {
       },
       setup = {
         eslint = function()
-          require("lazyvim.util").lsp.on_attach(function(client)
-            if client.name == "eslint" then
-              client.server_capabilities.documentFormattingProvider = true
-              client.flags.allow_incremental_sync = false
-              client.flags.debounce_text_changes = 1000
-            elseif client.name == "tsserver" then
-              client.server_capabilities.documentFormattingProvider = false
-            end
-          end)
+          -- automatically fix linting errors on save (but otherwise do not format the document)
+          vim.cmd([[
+          autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js EslintFixAll
+        ]])
         end,
       },
     },
+  },
+  {
+    "williamboman/mason.nvim",
+    opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
+      vim.list_extend(opts.ensure_installed, { "typescript-language-server" })
+    end,
   },
 }

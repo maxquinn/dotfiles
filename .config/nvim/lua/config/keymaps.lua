@@ -3,12 +3,14 @@
 -- Add any additional keymaps here
 local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
+local wk = require("which-key")
 
 -- Normal mode mappings
 keymap.set("n", "<M-j>", ":m .+1<CR>==", opts)
 keymap.set("n", "<M-k>", ":m .-2<CR>==", opts)
 keymap.set("n", "<M-Down>", ":m .+1<CR>==", opts)
 keymap.set("n", "<M-Up>", ":m .-2<CR>==", opts)
+keymap.set("n", "<C-y>", ":%s/\\<<C-r><C-w>\\>//g<left><left>", opts)
 
 -- Insert mode mappings
 keymap.set("i", "<M-j>", "<Esc>:m .+1<CR>==gi", opts)
@@ -38,3 +40,11 @@ keymap.set("n", "<S-Tab>", ":bprevious<Return>", opts)
 
 -- Neotree
 keymap.set("n", "<leader>fo", ":Neotree reveal<CR>")
+
+-- Code Companion
+wk.add({
+  { "<leader>a", group = "AI Code Companion", mode = { "n", "v" } }, -- group
+  { "<leader>aa", "<cmd>CodeCompanionActions<cr>", desc = "Open Actions", mode = { "n", "v" } },
+  { "<leader>ac", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle Chat", mode = "n" },
+  { "<leader>as", "<cmd>CodeCompanionChat Add<cr>", desc = "Add Selection", mode = "v" },
+}, opts)
