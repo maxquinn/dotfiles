@@ -89,3 +89,7 @@ fi
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# dotnet
+export DOTNET_ROOT=/usr/local/share/dotnet/x64
+export PATH=$PATH:$DOTNET_ROOT

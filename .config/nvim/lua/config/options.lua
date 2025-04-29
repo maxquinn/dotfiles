@@ -11,7 +11,6 @@ vim.g.copilot_no_tab_map = true
 vim.g.lazyvim_prettier_needs_config = true
 --disable lsp logs
 vim.lsp.set_log_level("ERROR")
-vim.opt.directory:prepend(vim.fn.stdpath("data") .. "/swap//")
 
 vim.diagnostic.config({
   float = {
