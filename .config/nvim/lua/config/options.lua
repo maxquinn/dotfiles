@@ -10,7 +10,9 @@ vim.g.copilot_no_tab_map = true
 -- If no prettier config file is found, the formatter will not be used
 vim.g.lazyvim_prettier_needs_config = true
 --disable lsp logs
-vim.lsp.set_log_level("off")
+vim.lsp.set_log_level("ERROR")
+vim.opt.directory:prepend(vim.fn.stdpath("data") .. "/swap//")
+
 vim.diagnostic.config({
   float = {
     border = "rounded",

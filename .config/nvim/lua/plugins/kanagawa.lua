@@ -49,6 +49,7 @@ return {
             BlinkCmpDocBorder = { bg = "none", fg = theme.ui.float.fg_border },
             BlinkCmpDocSeparator = { bg = "none", fg = theme.ui.float.fg_border },
             BlinkCmpScrollBarThumb = { bg = theme.ui.float.fg },
+            Visual = { bg = "#54546D" },
           }
         end,
         theme = "wave", -- Load "wave" theme when 'background' option is not set
