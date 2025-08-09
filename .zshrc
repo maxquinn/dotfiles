@@ -86,10 +86,15 @@ fi
 # bun completions
 [ -s "/Users/max.quinn/.bun/_bun" ] && source "/Users/max.quinn/.bun/_bun"
 
-# bun
+export EDITOR=nvim
+export VISUAL=nvim
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # dotnet
 export DOTNET_ROOT=/usr/local/share/dotnet/x64
 export PATH=$PATH:$DOTNET_ROOT
+
+export PATH="$HOME/.local/bin:$PATH"
+
+export OPENAI_API_KEY=op://Checkout/OpenAI/credential

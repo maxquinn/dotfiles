@@ -5,6 +5,12 @@ local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
 local wk = require("which-key")
 
+local function copy_relative_file_path()
+  local path = vim.fn.expand("%:.") -- relative path from current working directory
+  vim.fn.setreg("+", path)
+  print("Copied relative file path to clipboard: " .. path)
+end
+
 -- Normal mode mappings
 keymap.set("n", "<M-j>", ":m .+1<CR>==", opts)
 keymap.set("n", "<M-k>", ":m .-2<CR>==", opts)
@@ -47,4 +53,8 @@ wk.add({
   { "<leader>aa", "<cmd>CodeCompanionActions<cr>", desc = "Open Actions", mode = { "n", "v" } },
   { "<leader>ac", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle Chat", mode = "n" },
   { "<leader>as", "<cmd>CodeCompanionChat Add<cr>", desc = "Add Selection", mode = "v" },
+}, opts)
+
+wk.add({
+  { "<leader>fy", copy_relative_file_path, desc = "Copy relative file path", mode = "n" },
 }, opts)
