@@ -6,12 +6,15 @@ theme = Kanagawa Wave
 # ghostty +show-config --default --docs | nvim
 background-opacity = 0.9
 background-blur-radius = 20
-adjust-cursor-thickness = 1
+# adjust-cursor-thickness = 2
 mouse-hide-while-typing = true
 macos-titlebar-style = tabs
 macos-titlebar-proxy-icon = hidden
 window-save-state = always
 macos-option-as-alt = true
+window-padding-x = 10
+window-padding-color = extend
+custom-shader = ./shaders/cursor.glsl
 
 # Custom Icon
 macos-icon = custom-style
@@ -22,19 +25,19 @@ macos-icon-screen-color = #1f1f28,#7e9cd8,#ff9e3b
 # Fonts
 # ghostty +list-fonts
 font-size = 14
-adjust-cell-height = 10%
+
 # Standard
 font-family = Monaspace Neon Var
-font-style = Regular Medium
+font-style = Medium
 # Bold
 font-family-bold = Monaspace Argon Var
-font-style-bold = Regular Bold
+font-style-bold = Bold
 # Italic
 font-family-italic = Monaspace Radon Var
 font-style-italic = Italic
 # Bold Italic
 font-family-bold-italic = Monaspace Neon Var
-font-style-bold-italic = Regular Bold Italic
+font-style-bold-italic = Bold Italic
 # Features
 font-feature = calt
 font-feature = ss01
