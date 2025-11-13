@@ -13,6 +13,7 @@ macos-titlebar-proxy-icon = hidden
 window-save-state = always
 macos-option-as-alt = true
 window-padding-x = 10
+window-padding-y = 10
 window-padding-color = extend
 custom-shader = ./shaders/cursor.glsl
 
@@ -26,18 +27,21 @@ macos-icon-screen-color = #1f1f28,#7e9cd8,#ff9e3b
 # ghostty +list-fonts
 font-size = 14
 
+font-family = JetBrainsMono Nerd Font Mono
+adjust-cell-width = -7%
+font-thicken = true
 # Standard
-font-family = Monaspace Neon Var
-font-style = Medium
-# Bold
-font-family-bold = Monaspace Argon Var
-font-style-bold = Bold
-# Italic
-font-family-italic = Monaspace Radon Var
-font-style-italic = Italic
-# Bold Italic
-font-family-bold-italic = Monaspace Neon Var
-font-style-bold-italic = Bold Italic
+# font-family = Monaspace Neon Var
+# font-style = Medium
+# # Bold
+# font-family-bold = Monaspace Argon Var
+# font-style-bold = Bold
+# # Italic
+# font-family-italic = Monaspace Radon Var
+# font-style-italic = Italic
+# # Bold Italic
+# font-family-bold-italic = Monaspace Neon Var
+# font-style-bold-italic = Bold Italic
 # Features
 font-feature = calt
 font-feature = ss01

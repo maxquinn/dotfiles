@@ -2,58 +2,58 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
-      inlay_hints = { enabled = false },
+      -- inlay_hints = { enabled = false },
       servers = {
         eslint = {
           settings = {
             workingDirectories = { mode = "auto" },
           },
         },
-        vtsls = {
-          settings = {
-            typescript = {
-              preferences = {
-                importModuleSpecifier = "non-relative",
-              },
-            },
-          },
-        },
-        -- ts_ls = {
-        --   init_options = {
-        --     preferences = {
-        --       importModuleSpecifierPreference = "non-relative",
-        --       importModuleSpecifierEnding = "minimal",
-        --     },
-        --   },
+        -- vtsls = {
         --   settings = {
         --     typescript = {
-        --       inlayHints = {
-        --         includeInlayParameterNameHints = "none",
-        --         includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-        --         includeInlayFunctionParameterTypeHints = false,
-        --         includeInlayVariableTypeHints = false,
-        --         includeInlayPropertyDeclarationTypeHints = false,
-        --         includeInlayFunctionLikeReturnTypeHints = false,
-        --         includeInlayEnumMemberValueHints = false,
-        --       },
-        --     },
-        --     javascript = {
-        --       inlayHints = {
-        --         includeInlayParameterNameHints = "none",
-        --         includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-        --         includeInlayFunctionParameterTypeHints = false,
-        --         includeInlayVariableTypeHints = false,
-        --         includeInlayPropertyDeclarationTypeHints = false,
-        --         includeInlayFunctionLikeReturnTypeHints = false,
-        --         includeInlayEnumMemberValueHints = false,
+        --       preferences = {
+        --         importModuleSpecifier = "non-relative",
         --       },
         --     },
         --   },
         -- },
+        ts_ls = {
+          init_options = {
+            preferences = {
+              importModuleSpecifierPreference = "non-relative",
+              importModuleSpecifierEnding = "minimal",
+            },
+          },
+          settings = {
+            typescript = {
+              inlayHints = {
+                includeInlayParameterNameHints = "none",
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = false,
+                includeInlayVariableTypeHints = false,
+                includeInlayPropertyDeclarationTypeHints = false,
+                includeInlayFunctionLikeReturnTypeHints = false,
+                includeInlayEnumMemberValueHints = false,
+              },
+            },
+            javascript = {
+              inlayHints = {
+                includeInlayParameterNameHints = "none",
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = false,
+                includeInlayVariableTypeHints = false,
+                includeInlayPropertyDeclarationTypeHints = false,
+                includeInlayFunctionLikeReturnTypeHints = false,
+                includeInlayEnumMemberValueHints = false,
+              },
+            },
+          },
+        },
       },
       setup = {
         eslint = function()
-          require("lazyvim.util").lsp.on_attach(function(client)
+          require("snacks.util").lsp.on(function(_, client)
             if client.name == "eslint" then
               client.server_capabilities.documentFormattingProvider = true
             elseif client.name == "tsserver" then
