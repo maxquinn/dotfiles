@@ -65,3 +65,4 @@ keybind = super+shift+h=new_split:left
 keybind = super+shift+j=new_split:down
 keybind = super+shift+k=new_split:up
 keybind = super+shift+l=new_split:right
+keybind = shift+enter=text:\x1b\r

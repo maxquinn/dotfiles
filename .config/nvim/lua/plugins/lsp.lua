@@ -2,50 +2,35 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
-      -- inlay_hints = { enabled = false },
+      inlay_hints = { enabled = false },
       servers = {
         eslint = {
           settings = {
             workingDirectories = { mode = "auto" },
+            run = "onSave",
           },
         },
-        -- vtsls = {
-        --   settings = {
-        --     typescript = {
-        --       preferences = {
-        --         importModuleSpecifier = "non-relative",
-        --       },
-        --     },
-        --   },
-        -- },
-        ts_ls = {
-          init_options = {
-            preferences = {
-              importModuleSpecifierPreference = "non-relative",
-              importModuleSpecifierEnding = "minimal",
-            },
-          },
+        vtsls = {
+          -- explicitly disable formatting for vtsls so eslint/prettier takes over
+          -- this is cleaner than doing it in the 'setup' hook
+          on_attach = function(client)
+            client.server_capabilities.documentFormattingProvider = false
+          end,
           settings = {
-            typescript = {
-              inlayHints = {
-                includeInlayParameterNameHints = "none",
-                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                includeInlayFunctionParameterTypeHints = false,
-                includeInlayVariableTypeHints = false,
-                includeInlayPropertyDeclarationTypeHints = false,
-                includeInlayFunctionLikeReturnTypeHints = false,
-                includeInlayEnumMemberValueHints = false,
+            complete_function_calls = true,
+            vtsls = {
+              enableMoveToFileCodeAction = true, -- Essential for refactoring
+              autoUseWorkspaceTsdk = true, -- Uses your project's TS version (faster/more accurate)
+              experimental = {
+                completion = {
+                  enableServerSideFuzzyMatch = true, -- optimization for large completion lists
+                },
               },
             },
-            javascript = {
-              inlayHints = {
-                includeInlayParameterNameHints = "none",
-                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                includeInlayFunctionParameterTypeHints = false,
-                includeInlayVariableTypeHints = false,
-                includeInlayPropertyDeclarationTypeHints = false,
-                includeInlayFunctionLikeReturnTypeHints = false,
-                includeInlayEnumMemberValueHints = false,
+            typescript = {
+              updateImportsOnFileMove = { enabled = "always" },
+              preferences = {
+                importModuleSpecifier = "non-relative",
               },
             },
           },
@@ -56,19 +41,12 @@ return {
           require("snacks.util").lsp.on(function(_, client)
             if client.name == "eslint" then
               client.server_capabilities.documentFormattingProvider = true
-            elseif client.name == "tsserver" then
+            elseif client.name == "vtsls" then
               client.server_capabilities.documentFormattingProvider = false
             end
           end)
         end,
       },
     },
-  },
-  {
-    "mason-org/mason.nvim",
-    opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "typescript-language-server" })
-    end,
   },
 }

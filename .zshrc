@@ -13,6 +13,11 @@ alias npmcuh='rm -rf node_modules package-lock.json && npx npm-check-updates -u 
 alias vi='nvim'
 alias vim='nvim'
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+alias kill3k='kill -15 $(lsof -ti:3000)'
+alias z='zellij -l welcome'
+function zrun() {
+  zellij run -i -- "$@"
+}
 
 # Configure git aliases
 function __git_prompt_git() {
@@ -96,5 +101,6 @@ export DOTNET_ROOT=/usr/local/share/dotnet/x64
 export PATH=$PATH:$DOTNET_ROOT
 
 export PATH="$HOME/.local/bin:$PATH"
+export NODE_EXTRA_CA_CERTS=~/corporate-certs.pem
 
 export OPENAI_API_KEY=op://Checkout/OpenAI/credential

@@ -46,13 +46,13 @@ layout {
         args "."
       }
     }
-    tab name="󱍢" {
+    tab name="✻" {
       pane split_direction="vertical" {
         pane size="30%" command="make" {
           args "start"
           start_suspended true
         }
-        pane command="cursor-agent"
+        pane command="claude"
       }
     }
     tab name="" {
