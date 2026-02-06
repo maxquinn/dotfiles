@@ -56,6 +56,10 @@ font-feature = liga
 
 
 # keymaps
+# Option+arrow keys for word navigation (works correctly in zellij)
+keybind = opt+left=text:\x1b[1;3D
+keybind = opt+right=text:\x1b[1;3C
+
 keybind = global:cmd+shift+`=toggle_quick_terminal
 keybind = ctrl+super+h=goto_split:left
 keybind = ctrl+super+j=goto_split:bottom

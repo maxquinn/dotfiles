@@ -52,6 +52,8 @@ autoload -Uz compinit
 compinit
 zstyle ':completion:*:*:*:*:*' menu select
 bindkey '^[[Z' reverse-menu-complete  # shift+tab
+bindkey '^[[1;3C' forward-word        # Option+Right
+bindkey '^[[1;3D' backward-word       # Option+Left
 
 # fnm
 eval "$(fnm env --use-on-cd --version-file-strategy=recursive --shell zsh)"

@@ -47,14 +47,6 @@ keymap.set("n", "<S-Tab>", ":bprevious<Return>", opts)
 -- Neotree
 keymap.set("n", "<leader>fo", ":Neotree reveal<CR>")
 
--- Code Companion
-wk.add({
-  { "<leader>a", group = "AI Code Companion", mode = { "n", "v" } }, -- group
-  { "<leader>aa", "<cmd>CodeCompanionActions<cr>", desc = "Open Actions", mode = { "n", "v" } },
-  { "<leader>ac", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle Chat", mode = "n" },
-  { "<leader>as", "<cmd>CodeCompanionChat Add<cr>", desc = "Add Selection", mode = "v" },
-}, opts)
-
 wk.add({
   { "<leader>fy", copy_relative_file_path, desc = "Copy relative file path", mode = "n" },
 }, opts)
