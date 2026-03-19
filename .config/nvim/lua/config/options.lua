@@ -4,6 +4,7 @@
 
 -- diable copilot cmp
 vim.g.ai_cmp = false
+vim.o.pumblend = 10
 vim.g.copilot_no_tab_map = true
 
 -- Enable the option to require a Prettier config file

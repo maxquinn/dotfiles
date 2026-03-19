@@ -27,8 +27,8 @@ macos-icon-screen-color = #1f1f28,#7e9cd8,#ff9e3b
 # ghostty +list-fonts
 font-size = 14
 
-font-family = JetBrainsMono Nerd Font Mono
-adjust-cell-width = -7%
+# font-family = JetBrainsMono Nerd Font Mono
+# adjust-cell-width = -7%
 font-thicken = true
 # Standard
 # font-family = Monaspace Neon Var

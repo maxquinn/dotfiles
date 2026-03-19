@@ -11,6 +11,37 @@ local function copy_relative_file_path()
   print("Copied relative file path to clipboard: " .. path)
 end
 
+local function goto_outermost()
+  local function_types = {
+    function_declaration = true,
+    arrow_function = true,
+    function_expression = true,
+    method_definition = true,
+  }
+
+  local ok, node = pcall(vim.treesitter.get_node)
+  if not ok or not node then
+    print("No treesitter node found.")
+    return
+  end
+
+  local outermost = nil
+  while node do
+    if function_types[node:type()] then
+      outermost = node
+    end
+    node = node:parent()
+  end
+
+  if outermost then
+    local row, col = outermost:start()
+    vim.api.nvim_win_set_cursor(0, { row + 1, col })
+    vim.cmd("normal! zz")
+  else
+    print("No function definition found.")
+  end
+end
+
 -- Normal mode mappings
 keymap.set("n", "<M-j>", ":m .+1<CR>==", opts)
 keymap.set("n", "<M-k>", ":m .-2<CR>==", opts)
@@ -44,9 +75,12 @@ keymap.set("n", "<C-a>", "gg<S-v>G")
 keymap.set("n", "<Tab>", ":bnext<Return>", opts)
 keymap.set("n", "<S-Tab>", ":bprevious<Return>", opts)
 
--- Neotree
-keymap.set("n", "<leader>fo", ":Neotree reveal<CR>")
+-- File manager keymaps are defined in plugins/yazi.lua
 
 wk.add({
   { "<leader>fy", copy_relative_file_path, desc = "Copy relative file path", mode = "n" },
+}, opts)
+
+wk.add({
+  { "gR", goto_outermost, desc = "Jump to outermost function", mode = "n" },
 }, opts)

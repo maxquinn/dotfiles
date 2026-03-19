@@ -50,6 +50,13 @@ return {
             BlinkCmpDocSeparator = { bg = "none", fg = theme.ui.float.fg_border },
             BlinkCmpScrollBarThumb = { bg = theme.ui.float.fg },
             Visual = { bg = "#54546D" },
+            SnacksPickerListCursorLine = { bg = theme.ui.bg_visual },
+            WinSeparator = { fg = theme.ui.bg_p2, bg = "none" },
+            CursorLine = { bg = theme.ui.bg_p1 },
+            DiagnosticVirtualTextError = { fg = theme.diag.error, bg = "none" },
+            DiagnosticVirtualTextWarn = { fg = theme.diag.warning, bg = "none" },
+            DiagnosticVirtualTextInfo = { fg = theme.diag.info, bg = "none" },
+            DiagnosticVirtualTextHint = { fg = theme.diag.hint, bg = "none" },
           }
         end,
         theme = "wave", -- Load "wave" theme when 'background' option is not set
