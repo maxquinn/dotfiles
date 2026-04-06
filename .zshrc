@@ -59,10 +59,10 @@ bindkey '^[[1;3D' backward-word       # Option+Left
 eval "$(fnm env --use-on-cd --version-file-strategy=recursive --shell zsh)"
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/maxquinn/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/maxquinn/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f "/Users/$USER/google-cloud-sdk/path.zsh.inc" ]; then . "/Users/$USER/google-cloud-sdk/path.zsh.inc"; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/maxquinn/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/maxquinn/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f "/Users/$USER/google-cloud-sdk/completion.zsh.inc" ]; then . "/Users/$USER/google-cloud-sdk/completion.zsh.inc"; fi
 
 # Setup fzf and key bindings
 source <(fzf --zsh)
@@ -91,7 +91,7 @@ if [ -d "$FNM_PATH" ]; then
 fi
 
 # bun completions
-[ -s "/Users/max.quinn/.bun/_bun" ] && source "/Users/max.quinn/.bun/_bun"
+[ -s "/Users/$USER/.bun/_bun" ] && source "/Users/$USER/.bun/_bun"
 
 export EDITOR=nvim
 export VISUAL=nvim
@@ -104,5 +104,3 @@ export PATH=$PATH:$DOTNET_ROOT
 
 export PATH="$HOME/.local/bin:$PATH"
 export NODE_EXTRA_CA_CERTS=~/corporate-certs.pem
-
-export OPENAI_API_KEY=op://Checkout/OpenAI/credential

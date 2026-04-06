@@ -16,6 +16,7 @@ window-padding-x = 10
 window-padding-y = 10
 window-padding-color = extend
 custom-shader = ./shaders/cursor.glsl
+custom-shader-animation = always
 
 # Custom Icon
 macos-icon = custom-style
