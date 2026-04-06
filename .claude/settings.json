@@ -1,7 +1,7 @@
 {
   "statusLine": {
     "type": "command",
-    "command": "/Users/max.quinn/.claude/statusline-bubbletea.sh"
+    "command": "~/.claude/statusline-bubbletea.sh"
   },
   "enabledPlugins": {
     "typescript-lsp@claude-plugins-official": true,
