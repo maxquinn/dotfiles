@@ -5,6 +5,26 @@ if [[ -r '${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh' ]]
   source '${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh'
 fi
 
+# Ignore ctrl+d EOF signal
+setopt IGNORE_EOF
+# Vim bindings
+bindkey -v
+# Cursor shape based on vi mode
+function zle-keymap-select {
+  if [[ $KEYMAP == vicmd ]]; then
+    echo -ne '\e[1 q'  # Block cursor (normal mode)
+  else
+    echo -ne '\e[5 q'  # Bar cursor (insert mode)
+  fi
+}
+
+function zle-line-init {
+  echo -ne '\e[5 q'  # Bar cursor on new prompt
+}
+
+zle -N zle-keymap-select
+zle -N zle-line-init
+
 # Configure aliases
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
@@ -14,10 +34,8 @@ alias vi='nvim'
 alias vim='nvim'
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias kill3k='kill -15 $(lsof -ti:3000)'
-alias z='zellij -l welcome'
-function zrun() {
-  zellij run -i -- "$@"
-}
+alias ta="tmux attach -t"
+alias tl="tmux ls"
 
 # Configure git aliases
 function __git_prompt_git() {
@@ -97,10 +115,12 @@ export EDITOR=nvim
 export VISUAL=nvim
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+export CLAUDE_CODE_TMUX_TRUECOLOR=1
 
 # dotnet
 export DOTNET_ROOT=/usr/local/share/dotnet/x64
 export PATH=$PATH:$DOTNET_ROOT
 
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/scripts:$PATH"
 export NODE_EXTRA_CA_CERTS=~/corporate-certs.pem
