@@ -31,6 +31,33 @@ alias kill3k='kill -15 $(lsof -ti:3000)'
 alias ta="tmux attach -t"
 alias tl="tmux ls"
 
+# Hunk PR review helper
+# hpr [PR] opens a GitHub PR diff in Hunk. With no PR, gh uses the current branch PR.
+# This uses Hunk's native git loader instead of piping a patch, so in-app navigation works better.
+function hpr() {
+  local pr_arg="${1:-}"
+  local pr_view_args=()
+
+  if [[ -n "$pr_arg" && "$pr_arg" != "--" ]]; then
+    pr_view_args=("$pr_arg")
+    shift
+  fi
+
+  local pr_number base_ref head_ref base_remote_ref
+  pr_number=$(gh pr view "${pr_view_args[@]}" --json number -q .number) || return $?
+  base_ref=$(gh pr view "$pr_number" --json baseRefName -q .baseRefName) || return $?
+
+  head_ref="refs/remotes/origin/pr/$pr_number"
+  base_remote_ref="refs/remotes/origin/$base_ref"
+
+  echo "Fetching PR #$pr_number..."
+  git fetch -q origin \
+    "refs/heads/$base_ref:$base_remote_ref" \
+    "refs/pull/$pr_number/head:$head_ref" || return $?
+
+  hunk diff "$base_remote_ref...$head_ref" "$@"
+}
+
 # Configure git aliases
 function __git_prompt_git() {
   GIT_OPTIONAL_LOCKS=0 command git "$@"
@@ -70,12 +97,6 @@ bindkey '^[[1;3D' backward-word       # Option+Left
 # fnm
 eval "$(fnm env --use-on-cd --version-file-strategy=recursive --shell zsh)"
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f "/Users/$USER/google-cloud-sdk/path.zsh.inc" ]; then . "/Users/$USER/google-cloud-sdk/path.zsh.inc"; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f "/Users/$USER/google-cloud-sdk/completion.zsh.inc" ]; then . "/Users/$USER/google-cloud-sdk/completion.zsh.inc"; fi
-
 # Setup fzf and key bindings
 source <(fzf --zsh)
 HISTFILE=~/.zsh_history
@@ -109,3 +130,12 @@ export PATH=$PATH:$DOTNET_ROOT
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/scripts:$PATH"
 [ -f ~/corporate-certs.pem ] && export NODE_EXTRA_CA_CERTS=~/corporate-certs.pem
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/max.quinn/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/max.quinn/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/max.quinn/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/max.quinn/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+# Pi
+export PATH="/Users/max.quinn/.local/share/fnm/node-versions/v22.13.1/installation/bin:$PATH"
