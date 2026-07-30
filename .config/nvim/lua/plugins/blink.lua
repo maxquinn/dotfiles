@@ -7,7 +7,9 @@ return {
         callback = function()
           vim.schedule(function()
             local ok, list = pcall(require, "blink.cmp.completion.list")
-            if not ok then return end
+            if not ok then
+              return
+            end
 
             local original_show = list.show
             list.show = function(context, items_by_source)

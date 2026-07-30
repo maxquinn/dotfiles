@@ -1,8 +1,10 @@
 {
+  "attribution": {
+    "commit": ""
+  },
   "permissions": {
     "defaultMode": "auto"
   },
-  "model": "opus[1m]",
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline-bubbletea.sh"
@@ -23,5 +25,7 @@
     }
   },
   "effortLevel": "high",
-  "skipAutoPermissionPrompt": true
+  "tui": "fullscreen",
+  "skipAutoPermissionPrompt": true,
+  "model": "sonnet"
 }

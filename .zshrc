@@ -139,3 +139,9 @@ if [ -f '/Users/max.quinn/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then
 
 # Pi
 export PATH="/Users/max.quinn/.local/share/fnm/node-versions/v22.13.1/installation/bin:$PATH"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+# tmux fzf session picker: attach to / create a session on demand
+t() {
+  ~/.config/tmux/sessions.sh
+}

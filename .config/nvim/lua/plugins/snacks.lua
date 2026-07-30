@@ -33,6 +33,13 @@ return {
           { section = "startup" },
         },
       },
+      picker = {
+        hidden = true,
+        sources = {
+          files = { hidden = true },
+          explorer = { hidden = true },
+        },
+      },
       terminal = {
         enabled = true,
         win = {
