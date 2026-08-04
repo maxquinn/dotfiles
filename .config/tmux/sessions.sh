@@ -32,15 +32,24 @@ selection=$(
 [ -z "$selection" ] && exit 0
 
 if [ "$selection" = "$NEW_ENTRY" ]; then
+  # Base directory for the new session: the active pane's cwd when we're inside
+  # tmux (the popup's own $PWD is not reliable), otherwise the shell's cwd.
+  if [ -n "${TMUX:-}" ]; then
+    dir=$(tmux display-message -p '#{pane_current_path}')
+  else
+    dir=$PWD
+  fi
+  [ -d "$dir" ] || dir=$HOME
+
   read -r -p "New session name: " name
-  name=${name:-$(basename "$PWD")}
+  name=${name:-$(basename "$dir")}
   # tmux dislikes dots in session names.
   name=${name//./_}
   if [ -n "${TMUX:-}" ]; then
-    tmux new-session -d -s "$name" 2>/dev/null || true
+    tmux new-session -d -s "$name" -c "$dir" 2>/dev/null || true
     tmux switch-client -t "$name"
   else
-    tmux new-session -A -s "$name"
+    tmux new-session -A -s "$name" -c "$dir"
   fi
   exit 0
 fi
