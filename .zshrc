@@ -58,6 +58,32 @@ function hpr() {
   hunk diff "$base_remote_ref...$head_ref" "$@"
 }
 
+# Pick a live Hunk review comment and copy it as Markdown for GitHub.
+# hcopy [repo] defaults to the current repository.
+function hcopy() {
+  local repo="${1:-.}"
+  local comments selection comment_id copied_text
+
+  comments=$(hunk session comment list --repo "$repo" --type live --json) || return $?
+  if [[ $(printf '%s' "$comments" | jq '.comments | length') -eq 0 ]]; then
+    echo "No live Hunk comments found."
+    return 1
+  fi
+
+  selection=$(printf '%s' "$comments" |
+    jq -r '.comments[] | [.commentId, "\(.filePath):\(.line)", .summary] | @tsv' |
+    fzf --delimiter=$'\t' --with-nth=2,3 --prompt='Hunk comment> ')
+  [[ -z "$selection" ]] && return 0
+
+  comment_id="${selection%%$'\t'*}"
+  copied_text=$(printf '%s' "$comments" |
+    jq -r --arg id "$comment_id" \
+      '.comments[] | select(.commentId == $id) | "**\(.summary)**\n\n\(.rationale)"')
+
+  printf '%s' "$copied_text" | pbcopy
+  echo "Copied Hunk comment to clipboard."
+}
+
 # Configure git aliases
 function __git_prompt_git() {
   GIT_OPTIONAL_LOCKS=0 command git "$@"
@@ -138,7 +164,6 @@ if [ -f '/Users/max.quinn/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/U
 if [ -f '/Users/max.quinn/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/max.quinn/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
 # Pi
-export PATH="/Users/max.quinn/.local/share/fnm/node-versions/v22.13.1/installation/bin:$PATH"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
 # tmux fzf session picker: attach to / create a session on demand

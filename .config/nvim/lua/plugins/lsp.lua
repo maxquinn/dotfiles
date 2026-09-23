@@ -10,6 +10,35 @@ return {
             run = "onSave",
           },
         },
+        tsc = {},
+        -- terraform-ls has root_markers = { ".terraform", ".git" }, so in this repo it
+        -- rooted at the git root and recursively indexed all of node_modules.
+        -- Prefer real terraform markers (iac/components/*/.terraform.lock.hcl), fall
+        -- back to .git, and hard-exclude JS dirs from indexing either way.
+        terraformls = {
+          root_markers = { { ".terraform", ".terraform.lock.hcl" }, ".git" },
+          init_options = {
+            indexing = {
+              ignoreDirectoryNames = {
+                "node_modules",
+                ".next",
+                ".turbo",
+                "dist",
+                "build",
+                "coverage",
+                "generated-client",
+              },
+            },
+          },
+        },
+        -- oxlint shells out to tsgolint via spawnSync for type-aware linting; on a repo
+        -- this size, lint-on-type spawned enough concurrent processes to hit the proc
+        -- limit and die with EAGAIN. Match eslint and only lint on save.
+        oxlint = {
+          settings = {
+            run = "onSave",
+          },
+        },
         -- vtsls = {
         --   -- explicitly disable formatting for vtsls so eslint/prettier takes over
         --   -- this is cleaner than doing it in the 'setup' hook

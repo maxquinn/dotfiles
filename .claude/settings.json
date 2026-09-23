@@ -26,6 +26,6 @@
   },
   "effortLevel": "high",
   "tui": "fullscreen",
-  "skipAutoPermissionPrompt": true,
-  "model": "sonnet"
+  "autoCompactEnabled": false,
+  "skipAutoPermissionPrompt": true
 }
