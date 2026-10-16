@@ -90,10 +90,6 @@ return {
         },
         tabline = {},
         extensions = {},
-        disabled_filetypes = {
-          "neo-tree",
-          "fzf",
-        },
       })
     end,
   },

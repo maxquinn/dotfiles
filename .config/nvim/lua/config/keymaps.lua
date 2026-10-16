@@ -42,22 +42,22 @@ local function goto_outermost()
   end
 end
 
+-- Alt+j/k move panes in Rex, so drop LazyVim's move-line defaults for them
+for _, mode in ipairs({ "n", "i", "v" }) do
+  pcall(keymap.del, mode, "<A-j>")
+  pcall(keymap.del, mode, "<A-k>")
+end
+
 -- Normal mode mappings
-keymap.set("n", "<M-j>", ":m .+1<CR>==", opts)
-keymap.set("n", "<M-k>", ":m .-2<CR>==", opts)
 keymap.set("n", "<M-Down>", ":m .+1<CR>==", opts)
 keymap.set("n", "<M-Up>", ":m .-2<CR>==", opts)
 keymap.set("n", "<C-y>", ":%s/\\<<C-r><C-w>\\>//g<left><left>", opts)
 
 -- Insert mode mappings
-keymap.set("i", "<M-j>", "<Esc>:m .+1<CR>==gi", opts)
-keymap.set("i", "<M-k>", "<Esc>:m .-2<CR>==gi", opts)
 keymap.set("i", "<M-Down>", "<Esc>:m .+1<CR>==gi", opts)
 keymap.set("i", "<M-Up>", "<Esc>:m .-2<CR>==gi", opts)
 
 -- Visual mode mappings
-keymap.set("v", "<M-j>", ":m '>+1<CR>gv=gv", opts)
-keymap.set("v", "<M-k>", ":m '<-2<CR>gv=gv", opts)
 keymap.set("v", "<M-Down>", ":m '>+1<CR>gv=gv", opts)
 keymap.set("v", "<M-Up>", ":m '<-2<CR>gv=gv", opts)
 

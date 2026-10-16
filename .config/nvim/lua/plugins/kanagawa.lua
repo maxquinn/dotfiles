@@ -4,72 +4,70 @@ return {
     name = "kanagawa",
     lazy = false,
     priority = 1000,
-    opts = function()
-      require("kanagawa").setup({
-        compile = false, -- enable compiling the colorscheme
-        undercurl = true, -- enable undercurls
-        commentStyle = { italic = true },
-        functionStyle = {},
-        keywordStyle = { italic = true },
-        statementStyle = { bold = true },
-        typeStyle = {},
-        dimInactive = false,
-        terminalColors = true,
-        colors = {
-          theme = {
-            all = {
-              ui = {
-                bg_gutter = "none",
-                float = {
-                  bg = "none",
-                },
+    opts = {
+      compile = false, -- enable compiling the colorscheme
+      undercurl = true, -- enable undercurls
+      commentStyle = { italic = true },
+      functionStyle = {},
+      keywordStyle = { italic = true },
+      statementStyle = { bold = true },
+      typeStyle = {},
+      dimInactive = false,
+      terminalColors = true,
+      colors = {
+        theme = {
+          all = {
+            ui = {
+              bg_gutter = "none",
+              float = {
+                bg = "none",
               },
             },
           },
         },
-        transparent = true, -- do not set background color
-        overrides = function(colors)
-          local theme = colors.theme
-          return {
-            NormalFloat = { bg = "none" },
-            FloatBorder = { bg = "none" },
-            FloatTitle = { bg = "none" },
-            NormalDark = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
-            MasonNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
-            Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg_p1, blend = vim.o.pumblend }, -- add `blend = vim.o.pumblend` to enable transparency
-            PmenuSel = { fg = "none", bg = theme.ui.bg_p2 },
-            PmenuSbar = { bg = theme.ui.bg_m1 },
-            PmenuThumb = { bg = theme.ui.bg_p2 },
-            TelescopeTitle = { bg = "none" },
-            TelescopeBorder = { bg = "none" },
-            StatusLine = { bg = "none" },
-            SnacksDashboardHeader = { fg = "#c34043", bg = "none" },
-            BlinkCmpMenu = { bg = "none", fg = theme.ui.fg },
-            BlinkCmpMenuBorder = { bg = "none", fg = theme.ui.float.fg_border },
-            BlinkCmpDocBorder = { bg = "none", fg = theme.ui.float.fg_border },
-            BlinkCmpDocSeparator = { bg = "none", fg = theme.ui.float.fg_border },
-            BlinkCmpScrollBarThumb = { bg = theme.ui.float.fg },
-            Visual = { bg = "#54546D" },
-            SnacksPickerListCursorLine = { bg = theme.ui.bg_visual },
-            WinSeparator = { fg = theme.ui.bg_p2, bg = "none" },
-            CursorLine = { bg = theme.ui.bg_p1 },
-            DiagnosticVirtualTextError = { fg = theme.diag.error, bg = "none" },
-            DiagnosticVirtualTextWarn = { fg = theme.diag.warning, bg = "none" },
-            DiagnosticVirtualTextInfo = { fg = theme.diag.info, bg = "none" },
-            DiagnosticVirtualTextHint = { fg = theme.diag.hint, bg = "none" },
-          }
-        end,
-        theme = "wave", -- Load "wave" theme when 'background' option is not set
-        background = { -- map the value of 'background' option to a theme
-          dark = "wave", -- try "dragon" !
-          light = "lotus",
-        },
-      })
-    end,
+      },
+      transparent = true, -- do not set background color
+      overrides = function(colors)
+        local theme = colors.theme
+        return {
+          NormalFloat = { bg = "none" },
+          FloatBorder = { bg = "none" },
+          FloatTitle = { bg = "none" },
+          NormalDark = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
+          MasonNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
+          Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg_p1, blend = vim.o.pumblend }, -- add `blend = vim.o.pumblend` to enable transparency
+          PmenuSel = { fg = "none", bg = theme.ui.bg_p2 },
+          PmenuSbar = { bg = theme.ui.bg_m1 },
+          PmenuThumb = { bg = theme.ui.bg_p2 },
+          TelescopeTitle = { bg = "none" },
+          TelescopeBorder = { bg = "none" },
+          StatusLine = { bg = "none" },
+          SnacksDashboardHeader = { fg = "#c34043", bg = "none" },
+          BlinkCmpMenu = { bg = "none", fg = theme.ui.fg },
+          BlinkCmpMenuBorder = { bg = "none", fg = theme.ui.float.fg_border },
+          BlinkCmpDocBorder = { bg = "none", fg = theme.ui.float.fg_border },
+          BlinkCmpDocSeparator = { bg = "none", fg = theme.ui.float.fg_border },
+          BlinkCmpScrollBarThumb = { bg = theme.ui.float.fg },
+          Visual = { bg = vim.o.background == "dark" and "#54546D" or theme.ui.bg_visual },
+          SnacksPickerListCursorLine = { bg = theme.ui.bg_visual },
+          WinSeparator = { fg = theme.ui.bg_p2, bg = "none" },
+          CursorLine = { bg = theme.ui.bg_p1 },
+          DiagnosticVirtualTextError = { fg = theme.diag.error, bg = "none" },
+          DiagnosticVirtualTextWarn = { fg = theme.diag.warning, bg = "none" },
+          DiagnosticVirtualTextInfo = { fg = theme.diag.info, bg = "none" },
+          DiagnosticVirtualTextHint = { fg = theme.diag.hint, bg = "none" },
+        }
+      end,
+      theme = "wave", -- Load "wave" theme when 'background' option is not set
+      background = { -- map the value of 'background' option to a theme
+        dark = "wave", -- try "dragon" !
+        light = "lotus",
+      },
+    },
   },
   {
     "LazyVim/LazyVim",
-    config = {
+    opts = {
       colorscheme = "kanagawa",
     },
   },
