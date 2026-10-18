@@ -133,6 +133,26 @@ setopt appendhistory
 # Starship prompt
 eval "$(starship init zsh)"
 
+# Rex: save sessions in the background so they can be restored after a
+# restart (see ~/.config/rex/sessions.lua). Save at each prompt, at most every
+# 5 seconds per shell, and 2 seconds after a command starts, so a program
+# that keeps running (nvim, claude) is recorded before any prompt returns.
+if [[ -n "$REX_SESSION" ]]; then
+  zmodload zsh/datetime
+  typeset -gi _rex_sessions_saved_at=0
+  function _rex_sessions_save() {
+    (( EPOCHSECONDS - _rex_sessions_saved_at < 5 )) && return
+    _rex_sessions_saved_at=$EPOCHSECONDS
+    rex do sessions_save mode=auto &>/dev/null &!
+  }
+  function _rex_sessions_save_soon() {
+    ( sleep 2; rex do sessions_save mode=auto ) &>/dev/null &!
+  }
+  autoload -Uz add-zsh-hook
+  add-zsh-hook precmd _rex_sessions_save
+  add-zsh-hook preexec _rex_sessions_save_soon
+fi
+
 # ZSH Auto Suggestions
 source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 

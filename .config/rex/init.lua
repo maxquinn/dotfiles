@@ -53,6 +53,11 @@ rex.action{
 }
 rex.bind("ctrl+b>e", "scrollback_edit")
 
+-- Save and restore sessions across restarts (see sessions.lua)
+require("sessions")
+rex.bind("ctrl+b>shift+s", "sessions_save")
+rex.bind("ctrl+b>shift+r", "sessions_restore")
+
 -- Press ctrl+b twice to send ctrl+b to the terminal
 rex.bind("ctrl+b>ctrl+b", "pane.send_key", { key = "ctrl+b" })
 
