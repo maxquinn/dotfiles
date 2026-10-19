@@ -53,6 +53,41 @@ local programs = {
     end
     return "claude --continue"
   end,
+  -- Pi keeps no record of which session a process has open, so the extension
+  -- ~/.pi/agent/extensions/rex-session-file.ts writes one to
+  -- ~/.pi/agent/rex-sessions/<pid>.json, following /new, /resume, and /fork.
+  -- Pi only writes a session file once it holds a message, so a Pi with no
+  -- conversation yet comes back fresh. Without a record (a Pi started before
+  -- the extension), fall back to a --session on the command line, then to the
+  -- directory's latest session.
+  pi = function(proc)
+    local agent_dir = os.getenv("PI_CODING_AGENT_DIR") or (os.getenv("HOME") .. "/.pi/agent")
+    local f = io.open(agent_dir .. "/rex-sessions/" .. proc.pid .. ".json", "r")
+    local info = f and rex.json.decode(f:read("*a"))
+    if f then
+      f:close()
+    end
+    local session = info and info.sessionFile
+    if type(session) == "string" then
+      local saved = io.open(session, "r")
+      if not saved then
+        return "pi"
+      end
+      saved:close()
+      -- The restore types this into a shell, so only pass a path that needs
+      -- no quoting, else the session's ID.
+      if not session:match("^[%w%-%._/]+$") then
+        session = info.sessionId
+      end
+    else
+      local r = rex.exec({ "/bin/ps", "-o", "args=", "-p", tostring(proc.pid) }, { timeout = 2 })
+      session = r and r.ok and r.stdout:match("%-%-session[%s=]+(%S+)")
+    end
+    if type(session) == "string" and session:match("^[%w%-%._/]+$") then
+      return "pi --session " .. session
+    end
+    return "pi --continue"
+  end,
 }
 
 local shells = { zsh = true, bash = true, fish = true, sh = true }
